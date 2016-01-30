@@ -6,8 +6,11 @@ So I translated the play-slick [di sample](https://github.com/playframework/play
 
 The sample features:
 * [Evolutions](https://github.com/NicolaeNMV/play-slick-compile-time-di-sample/blob/master/app/AppMain.scala#L21)
-Mix `with SlickComponents with SlickEvolutionsComponents with EvolutionsComponents` into your `ApplicationComponents` and initialize evolutions when the app starts.
+by mixing `with SlickComponents with SlickEvolutionsComponents with EvolutionsComponents` into `ApplicationComponents` and initializing evolutions when the app starts.
 ```
+class ApplicationComponents(context: Context) extends BuiltInComponentsFromContext(context)
+  with SlickComponents with SlickEvolutionsComponents with EvolutionsComponents {
+...
   // This is required by EvolutionsComponents
   lazy val dynamicEvolutions: DynamicEvolutions = new DynamicEvolutions
 
@@ -17,6 +20,7 @@ Mix `with SlickComponents with SlickEvolutionsComponents with EvolutionsComponen
   }
 
   onStart()
+}
 ```
 
 * [In memory](https://github.com/NicolaeNMV/play-slick-compile-time-di-sample/blob/master/test/TestEnvironment.scala#L12) database configuration for tests
